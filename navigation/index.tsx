@@ -21,8 +21,12 @@ import NotFoundScreen from "../screens/App/NotFoundScreen";
 import TabOneScreen from "../screens/App/TabOneScreen";
 import TabTwoScreen from "../screens/App/TabTwoScreen";
 import TabThreeScreen from "../screens/App/TabThreeScreen";
+import LandingScreen from "../screens/Auth/LandingScreen";
+import SignUpScreen from "../screens/Auth/SignUpScreen";
+import SignInScreen from "../screens/Auth/SignInScreen";
 
 import {
+  RootAuthParamList,
   RootStackParamList,
   RootTabParamList,
   RootTabScreenProps,
@@ -54,6 +58,11 @@ function RootNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
+        name="Auth"
+        component={AuthNavigator}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
         options={{ headerShown: false }}
@@ -69,10 +78,21 @@ function RootNavigator() {
     </Stack.Navigator>
   );
 }
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
+
+const AuthStack = createNativeStackNavigator<RootAuthParamList>();
+
+function AuthNavigator() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen name="LandingScreen" component={LandingScreen} />
+      <AuthStack.Screen name="SignUpScreen" component={SignUpScreen} />
+      <AuthStack.Screen name="SignInScreen" component={SignInScreen} />
+    </AuthStack.Navigator>
+  );
+}
+
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
